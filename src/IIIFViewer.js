@@ -17,17 +17,13 @@ export default class IIIFViewer extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {center: [0, 0], zoom: 1, loading: false}
+    this.state = {loading: false}
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.url !== nextProps.url) {
       this.setState({loading: false})
     }
-  }
-
-  handleOnViewportChange = ({center, zoom}) => {
-    this.setState({center, zoom})
   }
 
   handleOnLoading = event => {
@@ -40,14 +36,10 @@ export default class IIIFViewer extends React.Component {
 
   render() {
     const {className, url, onWheel} = this.props
-    const {center, zoom, tileLoadCount} = this.state
     return <ExposeScrollMap
       className={className}
-      center={center}
-      zoom={zoom}
       crs={L.CRS.Simple}
       onWheel={onWheel}
-      onViewportChange={this.handleOnViewportChange}
       onLoading={this.handleOnLoading}
       onLoaded={this.handleOnLoaded}
     >
