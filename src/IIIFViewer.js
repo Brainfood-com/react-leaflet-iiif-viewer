@@ -17,7 +17,7 @@ export default class IIIFViewer extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {loading: false}
+    this.state = {center: [0, 0], zoom: 1, loading: false}
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,10 +36,11 @@ export default class IIIFViewer extends React.Component {
 
   render() {
     const {className, url, onWheel} = this.props
+		const {center, zoom} = this.state
     return <ExposeScrollMap
       className={className}
-			center={[0, 0]}
-			zoom={1}
+      center={center}
+      zoom={zoom}
       crs={L.CRS.Simple}
       onWheel={onWheel}
       onLoading={this.handleOnLoading}
