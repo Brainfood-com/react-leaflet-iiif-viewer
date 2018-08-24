@@ -38,6 +38,8 @@ export default class IIIFViewer extends React.Component {
     const {className, url, onWheel} = this.props
     return <ExposeScrollMap
       className={className}
+			center={[0, 0]}
+			zoom={1}
       crs={L.CRS.Simple}
       onWheel={onWheel}
       onLoading={this.handleOnLoading}
