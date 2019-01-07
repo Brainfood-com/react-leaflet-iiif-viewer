@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import L from 'leaflet'
 import 'leaflet-draw'
 import 'leaflet-iiif'
-import { TileLayer } from 'react-leaflet'
+import { GridLayer } from 'react-leaflet'
 import $ from 'jquery'
 
 window.$ = $
@@ -31,9 +31,17 @@ const FixedIiif = L.TileLayer.Iiif.extend({
 })
 
 // Convert leaflet-iiif to react-leaflet
-class IIIFTileLayerImpl extends TileLayer {
+class IIIFTileLayerImpl extends GridLayer {
   createLeafletElement(props: Props): LeafletElement {
     return new FixedIiif(props.url, this.getOptions(props))
+  }
+
+  updateLeafletElement(fromProps: Props, toProps: Props) {
+    super.updateLeafletElement.call(this, fromProps, toProps)
+
+    if (toProps.url !== fromProps.url) {
+      this.leafletElement.setUrl(toProps.url)
+    }
   }
 }
 
